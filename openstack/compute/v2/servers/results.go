@@ -1,10 +1,10 @@
 package servers
 
 import (
-	"reflect"
 	"fmt"
-	"path"
 	"net/url"
+	"path"
+	"reflect"
 
 	"github.com/mitchellh/mapstructure"
 	"github.com/rackspace/gophercloud"
@@ -74,6 +74,10 @@ type ActionResult struct {
 
 // RescueResult represents the result of a server rescue operation
 type RescueResult struct {
+	ActionResult
+}
+
+type UnrescueResult struct {
 	ActionResult
 }
 

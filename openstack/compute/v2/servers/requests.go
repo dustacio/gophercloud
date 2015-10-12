@@ -640,6 +640,29 @@ func Rescue(client *gophercloud.ServiceClient, id string, opts RescueOptsBuilder
 	return result
 }
 
+// Unrescue instructs the provicer to remove the server from RESCUE mode.
+func Unrescue(client *gophercloud.ServiceClient, id string) UnrescueResult {
+	var res UnrescueResult
+	server := make(map[string]interface{})
+
+	if id == "" {
+		result.Err = fmt.Errorf("ID is required")
+		return result
+	}
+
+	reqBody, err := map[string]interface{}{"unrescue": server}, nil
+	if err != nil {
+		result.Err = err
+		return result
+	}
+
+	_, res.Err = client.Post(actionUrl(client, id), reqBody, &result.Body, &gophercloud.RequestOpts{
+		OkCodes: []int{200},
+	})
+
+	return result
+}
+
 // ResetMetadataOptsBuilder allows extensions to add additional parameters to the
 // Reset request.
 type ResetMetadataOptsBuilder interface {
